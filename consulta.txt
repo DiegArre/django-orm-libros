@@ -1,0 +1,138 @@
+
+In [1]: from app.models import *
+
+In [2]: libro1 = Libro.objects.create(titulo="C Sharp", descripcion= "Descripcion libro C Sharp")
+
+In [3]: libro2 = Libro.objects.create(titulo="Java", descripcion= "Descripcion libro Java")
+
+In [4]: libro3 = Libro.objects.create(titulo="Python", descripcion= "Descripcion libro Python")
+
+In [5]: libro4 = Libro.objects.create(titulo="PHP", descripcion= "Descripcion libro PHP")
+
+In [6]: libro5 = Libro.objects.create(titulo="Ruby", descripcion= "Descripcion libro Ruby")
+
+In [8]: autor1= Autor.objects.create(first_name= "Jane", last_name= "Austen")
+
+In [9]: autor2= Autor.objects.create(first_name= "Emily", last_name= "Dickinson")
+
+In [10]: autor3= Autor.objects.create(first_name= "Fyodor", last_name= "Dostoevksy")
+
+In [11]: autor4= Autor.objects.create(first_name= "William", last_name= "Shakespeare")
+
+In [12]: autor5= Autor.objects.create(first_name= "Lau", last_name= "Tzu")
+
+
+CONSULTAS Y UPDATES Y DELETES
+
+In [1]: from app.models import *
+
+In [2]: libro_updt = Libro.objects.get(titulo= "C Sharp")
+
+In [3]: print(libro_updt)
+Titulo: C Sharp  Descripcion: Descripcion libro C Sharp
+
+In [4]: libro_updt.titulo = "C #"
+
+In [5]: libro_updt.save()
+
+In [6]: print(libro_updt)
+Titulo: C #  Descripcion: Descripcion libro C Sharp
+
+In [7]: libro_updt = Libro.objects.get(titulo= "C Sharp")
+
+In [8]: autor_updt = Autor.objects.get(id=4)
+
+In [9]: print(autor_updt)
+Nombre Autor:(William Shakespeare)
+
+In [10]: autor_updt.first_name = "Bill"
+
+In [11]: autor_updt.save()
+
+In [12]: autor1 = Autor.objects.get(id=1)
+
+In [13]: libro1= Libro.objects.get(id=1)
+
+In [14]: libro2= Libro.objects.get(id=2)
+
+In [15]: autor1.libros.add(libro1)
+
+In [16]: autor1.libros.add(libro2)
+
+In [17]: libro3 = Libro.objects.get(id=3)
+
+In [18]: autor2 = Autor.objects.get(id=2)
+
+In [19]: autor2.libros.add(libro1)
+
+In [20]: autor2.libros.add(libro2)
+
+In [21]: autor2.libros.add(libro3)
+
+In [22]: autor3 = Autor.objects.get(id=3)
+
+In [23]: libro4 = Libro.objects.get(id=4)
+
+In [24]: autor3.libros.add(libro1)
+
+In [25]: autor3.libros.add(libro2)
+
+In [26]: autor3.libros.add(libro3)
+
+In [27]: autor3.libros.add(libro4)
+
+In [28]: autor4 = Autor.objects.get(id=4)
+
+In [29]: libro5 = Libro.objects.get(id=5)
+
+In [30]: autor4.libros.add(libro1)
+
+In [31]: autor4.libros.add(libro2)
+
+In [32]: autor4.libros.add(libro3)
+
+In [33]: autor4.libros.add(libro4)
+
+In [34]: autor4.libros.add(libro5)
+
+In [35]: libro3.autores.all()
+Out[35]: <QuerySet [<Autor: Nombre Autor:(Emily Dickinson)>, <Autor: Nombre Autor:(Fyodor Dostoevksy)>, <Autor: Nombre Autor:(Bill Shakespeare)>
+]>
+
+In [36]: autores_libro3 = libro3.autores.all()
+
+In [37]: print(autores_libro3)
+<QuerySet [<Autor: Nombre Autor:(Emily Dickinson)>, <Autor: Nombre Autor:(Fyodor Dostoevksy)>, <Autor: Nombre Autor:(Bill Shakespeare)>]> 
+
+In [38]: autores_libro3.first()
+Out[38]: <Autor: Nombre Autor:(Emily Dickinson)>
+
+In [39]: eliminar_este_autor1 = autores_libro3.first()
+
+In [40]: libro3.autores.remove(eliminar_este_autor1)
+
+In [41]: libro3.autores.all()
+Out[41]: <QuerySet [<Autor: Nombre Autor:(Fyodor Dostoevksy)>, <Autor: Nombre Autor:(Bill Shakespeare)>]>
+
+
+In [42]: libro2.autores.all()
+Out[42]: <QuerySet [<Autor: Nombre Autor:(Jane Austen)>, <Autor: Nombre Autor:(Emily Dickinson)>, <Autor: Nombre Autor:(Fyodor Dostoevksy)>, <Au
+tor: Nombre Autor:(Bill Shakespeare)>]>
+
+In [43]: autor5 = Autor.objects.get(id=5)
+
+In [44]: libro2.autores.add(autor5)
+
+In [45]: libro2.autores.all()
+Out[45]: <QuerySet [<Autor: Nombre Autor:(Jane Austen)>, <Autor: Nombre Autor:(Emily Dickinson)>, <Autor: Nombre Autor:(Fyodor Dostoevksy)>, <Au
+tor: Nombre Autor:(Bill Shakespeare)>, <Autor: Nombre Autor:(Lau Tzu)>]>
+
+In [46]: libros_autor3= autor3.libros.all()
+
+In [47]: print(libros_autor3)
+<QuerySet [<Libro: Titulo: C #  Descripcion: Descripcion libro C Sharp>, <Libro: Titulo: Java  Descripcion: Descripcion libro Java>, <Libro: Tit
+ulo: Python  Descripcion: Descripcion libro Python>, <Libro: Titulo: PHP  Descripcion: Descripcion libro PHP>]>
+
+
+In [48]: libro5.autores.all()
+Out[48]: <QuerySet [<Autor: Nombre Autor:(Bill Shakespeare)>]>
