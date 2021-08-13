@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+    <title>Libros</title>
+</head>
+<body>
+    
+    <nav class="navbar navbar-light bg-light mb-5">
+        <div class="container">
+          <a class="navbar-brand" href="#">
+            <img src="" alt="" width="30" height="24">
+          </a>
+        </div>
+    </nav>
+
+    <div class="container ">
+        <div class="row row-cols-2 g-5">
+            <div class="col-6">
+                <h1>Añadir Libro</h1>
+                <form action="/añadir/libros" method="post">
+                  {%csrf_token%}
+                    <div class="row justify-content-center">
+
+                        <div class="col-12 mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Titulo</label>
+                            <input name="titulo" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Titulo">
+                        </div>
+
+                        <div class="col-12 mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">Descripción</label>
+                            <textarea name="desc" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Escriba aquí una descripcion del libro..."></textarea>
+                        </div>
+                        
+                        <button class="btn btn-primary col-3 mb-3" type="submit">Añadir</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-6">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    
+                    <tbody>
+                      {%for libro in libros%}
+                      <tr>
+                        <th scope="col" >{{libro.id}}</th>
+                        <td>{{libro.titulo}}</td>
+                        <td>{{libro.descripcion}}</td>
+                        <td><a href="/libro/{{libro.id}}">View</a></td>
+                      </tr>
+                      {%endfor%}
+                
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

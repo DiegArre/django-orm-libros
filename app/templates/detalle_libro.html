@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+    <title>Libro</title>
+</head>
+<body>
+    
+    <nav class="navbar navbar-light bg-light mb-5">
+        <div class="container">
+          <a class="navbar-brand" href="#">
+            <img src="" alt="" width="30" height="24">
+          </a>
+        </div>
+    </nav>
+
+    <div class="container ">
+        <div class="row row-cols-2 g-5">
+            <div class="col-6">
+                <h1>{{libro.titulo}}</h1>
+                <h3>ID : {{libro.id}}</h3>
+                <h3>Descripcion: <span>{{libro.descripcion}}</span></h3>
+            </div>
+            <div class="col-6">
+                <h2>Autores</h2>
+                <ul>
+                    {% for autor in autores_libro %}
+                    <li>{{autor.first_name}}{{autor.last_name}}</li>
+                    {%endfor%}
+                </ul>
+
+                <form action="" method="post" class="mt-5">
+                    <div class="row justify-content-center">
+                      <div class="col-12">
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                            <option selected>Elija el Autor</option>
+                            {%for autor in otros_autores%}  
+                                    <option value={{autor.id}}> {{autor.first_name}}{{autor.last_name}}</option>
+                            {%endfor%}
+                          </select>
+                      </div>
+                      <button class="col-4 btn btn-success" type="submit">Agregar</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
