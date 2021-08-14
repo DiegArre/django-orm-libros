@@ -61,6 +61,13 @@ def mostrar_libro(request,el_id):
         "autores_libro" : libro.autores.all(),
         "otros_autores" : otros_autores
     }
+
+    if request.method == "POST":
+        this_libro = Libro.objects.get(id=el_id)
+        this_autor = Autor.objects.get(id=request.POST["id_autor"])
+        this_libro.autores.add(this_autor)
+        return redirect(f"/libro/{el_id}")
+
     return render(request,"detalle_libro.html",context)
 
 
@@ -78,4 +85,44 @@ def mostrar_autor(request,el_id):
         "otros_libros" : libros_otro_autor
     }
 
+    if request.method == "POST":
+        print(request.POST)
+        this_autor = Autor.objects.get(id=el_id)
+        this_libro = Libro.objects.get(id = request.POST["id_libro"])
+        print(this_autor,this_libro)
+        #Se añade el autor al libro
+        this_autor.libros.add(this_libro)
+        return redirect(f"/autor/{el_id}")
+
+
     return render(request,"detalle_autor.html",context)
+
+def eliminar_libros(request,id_libro):
+    libro_eliminar = Libro.objects.get(id=id_libro)
+    libro_eliminar.delete()
+    return redirect("/libros")
+    
+def eliminar_autores(request,id_autor):
+    autor_eliminar = Autor.objects.get(id=id_autor)
+    autor_eliminar.delete()
+    return redirect("/autores")
+
+def eliminar_autor_libro(request,id_autor,id_libro):
+    this_autor = Autor.objects.get(id=id_autor)
+    this_libro = Libro.objects.get(id=id_libro)
+
+    this_libro.autores.remove(this_autor)
+
+    return redirect(f"/libro/{id_libro}")
+
+def eliminar_libro_autor(request,id_autor,id_libro):
+    this_autor = Autor.objects.get(id=id_autor)
+    this_libro = Libro.objects.get(id=id_libro)
+
+    this_autor.libros.remove(this_libro)
+    
+    return redirect(f"/autor/{id_autor}")
+    
+
+
+

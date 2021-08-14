@@ -14,8 +14,9 @@
     <nav class="navbar navbar-light bg-light mb-5">
         <div class="container">
           <a class="navbar-brand" href="#">
-            <img src="" alt="" width="30" height="24">
+            <img src="{% static 'img/libros.png' %}" alt="" width="30" height="24">
           </a>
+          <a href="/autores" class="btn btn-danger">Autores</a>
         </div>
     </nav>
 
@@ -30,20 +31,19 @@
                 <h2>Libros</h2>
                 <ul>
                     {% for libro in autor_libros %}
-                    <li>{{libro.titulo}}</li>
+                    <li>{{libro.titulo}} <a href="{{autor.id}}/eliminar/{{libro.id}}" class="badge bg-danger text-decoration-none">X</a></li>
                     {%endfor%}
                 </ul>
 
                 <form action="" method="post" class="mt-5">
+                    {%csrf_token%}
                     <div class="row justify-content-center">
                       <div class="col-12">
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-                            <option selected>Elija el libro</option>
+                        <select name="id_libro" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" required>
+                            <option value="" selected>Elija el libro</option>
+                            
                             {%for libro in otros_libros%}
-                                  
                                     <option value={{libro.id}}>{{libro.titulo}}</option>
-
-
                             {%endfor%}
                           </select>
                       </div>

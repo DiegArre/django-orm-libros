@@ -14,9 +14,12 @@
     <nav class="navbar navbar-light bg-light mb-5">
         <div class="container">
           <a class="navbar-brand" href="#">
-            <img src="" alt="" width="30" height="24">
+            <img src="{% static 'img/libros.png' %}" alt="" width="30" height="24">
           </a>
+          <a href="/libros" class="btn btn-danger">Libros</a>
         </div>
+
+        
     </nav>
 
     <div class="container ">
@@ -30,18 +33,19 @@
                 <h2>Autores</h2>
                 <ul>
                     {% for autor in autores_libro %}
-                    <li>{{autor.first_name}}{{autor.last_name}}</li>
+                    <li>{{autor.first_name}}{{autor.last_name}} <a href="{{libro.id}}/eliminar/{{autor.id}}" class="badge bg-danger text-decoration-none">X</a></li>
                     {%endfor%}
                 </ul>
 
                 <form action="" method="post" class="mt-5">
+                    {%csrf_token%}
                     <div class="row justify-content-center">
                       <div class="col-12">
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-                            <option selected>Elija el Autor</option>
+                        <select name="id_autor" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" required>
+                            <option value="" selected>Elija el Autor</option>
                             {%for autor in otros_autores%}  
                                     <option value={{autor.id}}> {{autor.first_name}}{{autor.last_name}}</option>
-                            {%endfor%}
+                            {%endfor%}  
                           </select>
                       </div>
                       <button class="col-4 btn btn-success" type="submit">Agregar</button>

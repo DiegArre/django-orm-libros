@@ -14,8 +14,9 @@
     <nav class="navbar navbar-light bg-light mb-5">
         <div class="container">
           <a class="navbar-brand" href="#">
-            <img src="" alt="" width="30" height="24">
+            <img src="{% static 'img/libros.png' %}" alt="" width="30" height="24">
           </a>
+          <a href="/autores" class="btn btn-danger">Autores</a>
         </div>
     </nav>
 
@@ -58,7 +59,7 @@
                         <th scope="col" >{{libro.id}}</th>
                         <td>{{libro.titulo}}</td>
                         <td>{{libro.descripcion}}</td>
-                        <td><a href="/libro/{{libro.id}}">View</a></td>
+                        <td><a href="/libro/{{libro.id}}">View</a> / <a href="/libro/eliminar/{{libro.id}}" class="text-danger">Delete</a></td>
                       </tr>
                       {%endfor%}
                 
